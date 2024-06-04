@@ -1,3 +1,12 @@
+As it is just a static UI please it wont work for all the questiions. Please use the below questions to check funtionlity 
+
+What's the difference between GET and POST requests?
+Can you explain RESTful APIs?
+What is a Promise in JavaScript?
+How do you handle errors in async/await?
+What is the virtual DOM?
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

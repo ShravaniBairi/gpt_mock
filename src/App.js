@@ -18,7 +18,7 @@ function App() {
     setPastData(data);
     }, []);
   
-  const saveData = useCallback(() => {
+  const saveData = () => {
     setToSave(toSave => !toSave)
     setCurrentChat([])
     const data = JSON.parse(localStorage.getItem("pastConversations")) 
@@ -26,7 +26,7 @@ function App() {
     if(data?.length>0){
       setPastData(data)
     }
-  }, [setToSave, setCurrentChat, setPastData])
+  }
 
   function editFlag(isEdit, editIndex){
     setIsEdit(isEdit)

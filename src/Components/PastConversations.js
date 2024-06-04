@@ -5,7 +5,7 @@ const PastConversations = ({saveData, pastData, setCurrentChat, editFlag}) => {
 
   useEffect(()=>{
     saveData()
-  },[saveData])
+  },[])
 
   function handleEdit(index){
     //console.log(pastData)

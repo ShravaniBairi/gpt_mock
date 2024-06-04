@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import './App.css';
 import ChatBody from './Components/ChatBody';
 import PastConversations from './Components/PastConversations';
@@ -18,15 +18,15 @@ function App() {
     setPastData(data);
     }, []);
   
-  function saveData(){
-    setToSave(!toSave)
+  const saveData = useCallback(() => {
+    setToSave(toSave => !toSave)
     setCurrentChat([])
     const data = JSON.parse(localStorage.getItem("pastConversations")) 
     console.log("Saved pastConversations to state:", data);
     if(data?.length>0){
       setPastData(data)
     }
-  }
+  }, [setToSave, setCurrentChat, setPastData])
 
   function editFlag(isEdit, editIndex){
     setIsEdit(isEdit)

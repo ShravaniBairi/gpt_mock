@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import '../App.css'
 import {MockData} from '../utils/MockData'
 const ChatBody = ({ currentChat, setCurrentChat, saveData, isEdit, editFlag, editIndex}) => {
@@ -11,7 +11,7 @@ const ChatBody = ({ currentChat, setCurrentChat, saveData, isEdit, editFlag, edi
       setPastConversations(storedData)
     },[])
 
-   /* const addPastConversations = (currentChat) => {
+    const addPastConversations = (currentChat) => {
       const data = {
         title: currentChat[0]?.question,
         conversation : currentChat
@@ -48,40 +48,7 @@ const ChatBody = ({ currentChat, setCurrentChat, saveData, isEdit, editFlag, edi
       if(currentChat.length > 0) {
         addPastConversations(currentChat)
       }
-      },[currentChat]) */
-
-      // Define addPastConversations using useCallback
-const addPastConversations = useCallback((currentChat) => {
-  const data = {
-      title: currentChat[0]?.question,
-      conversation: currentChat
-  };
-  if (currentChat.length !== 0) {
-      if (currentChat.length === 1 && isEdit === false) {
-          setPastConversations([...pastConversations, data]);
-      } else if (pastConversations.length >= 1 && isEdit === false) {
-          const filterConversation = pastConversations;
-          filterConversation.pop();
-          setPastConversations([...filterConversation, data]);
-      } else if (isEdit === true) {
-          console.log(editIndex);
-          const editData = pastConversations.filter((_conversation, idx) => editIndex !== idx);
-          console.log(editData);
-          setPastConversations([...editData, data]);
-          if (currentChat.length !== 1) {
-              editFlag(false, null);
-              console.log('callEditFlag');
-          }
-      }
-  }
-}, [isEdit, editIndex, pastConversations, editFlag]);
-
-// Use useEffect to call addPastConversations when currentChat changes
-useEffect(() => {
-  if (currentChat.length > 0) {
-      addPastConversations(currentChat);
-  }
-}, [currentChat, addPastConversations]);
+      },[currentChat])
 
     useEffect(()=>{
       if(pastConversations.length>0){

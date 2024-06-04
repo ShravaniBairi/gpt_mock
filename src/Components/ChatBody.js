@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState,useCallback, useEffect} from 'react'
 import '../App.css'
 import {MockData} from '../utils/MockData'
 const ChatBody = ({ currentChat, setCurrentChat, saveData, isEdit, editFlag, editIndex}) => {
@@ -11,36 +11,61 @@ const ChatBody = ({ currentChat, setCurrentChat, saveData, isEdit, editFlag, edi
       setPastConversations(storedData)
     },[])
 
-    const addPastConversations = (currentChat) => {
+    const addPastConversations = useCallback((currentChat) => {
       const data = {
         title: currentChat[0]?.question,
         conversation : currentChat
       }
       if (currentChat.length !== 0 ){
-      if( currentChat.length === 1 && isEdit === false ){
-        setPastConversations([...pastConversations, data])
-
-      }
-      else if(pastConversations.length >= 1 && isEdit === false){
-        const filterConversation = pastConversations
-        filterConversation.pop() 
-        setPastConversations([...filterConversation, data])
-      }
-      else if(isEdit === true){
-        console.log(editIndex)
-        const editData = pastConversations.filter((_conversation, idx) => editIndex !== idx )
-        console.log(editData)
-        setPastConversations([...editData, data])  
-        if(currentChat.length !== 1)
-          {
-        editFlag(false, null)
-        console.log('callEditFlag')
-          }
-
-      }
+      setPastConversations(prevConversations => {
+    if (currentChat.length !== 0) {
+        if (currentChat.length === 1 && !isEdit) {
+            return [...prevConversations, data];
+        } else if (prevConversations.length >= 1 && !isEdit) {
+            const filterConversation = [...prevConversations];
+            filterConversation.pop();
+            return [...filterConversation, data];
+        } else if (isEdit) {
+            const editData = prevConversations.map((conversation, idx) =>
+                idx === editIndex ? data : conversation
+            );
+            if (currentChat.length !== 1) {
+                editFlag(false, null);
+                console.log('callEditFlag');
+            }
+            return editData;
+        } else {
+            
+            return prevConversations; // return previous state unchanged
+        }
+    } else {
+        return prevConversations; // return previous state unchanged
     }
+});
+    }
+    
       
-    }
+    }, [isEdit, editIndex, editFlag])
+
+    /*const addPastConversations = useCallback((chat) => {
+      if (chat.length === 0) return;
+
+      const data = {
+          title: chat[0]?.question,
+          conversation: chat
+      };
+
+      setPastConversations(prevConversations => {
+          if (isEdit) {
+              const editData = prevConversations.map((conversation, idx) =>
+                  idx === editIndex ? data : conversation
+              );
+              return editData;
+          } else {
+              return [...prevConversations, data];
+          }
+      });
+  }, [isEdit, editIndex]);*/
 
 
     
@@ -48,7 +73,7 @@ const ChatBody = ({ currentChat, setCurrentChat, saveData, isEdit, editFlag, edi
       if(currentChat.length > 0) {
         addPastConversations(currentChat)
       }
-      },[currentChat])
+      },[currentChat, addPastConversations])
 
     useEffect(()=>{
       if(pastConversations.length>0){

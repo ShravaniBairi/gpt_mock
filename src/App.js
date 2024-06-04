@@ -18,7 +18,7 @@ function App() {
     setPastData(data);
     }, []);
   
-  function saveData (){
+  const saveData = useCallback(()=>{
     setToSave(toSave => !toSave)
     setCurrentChat([])
     const data = JSON.parse(localStorage.getItem("pastConversations")) 
@@ -26,13 +26,13 @@ function App() {
     if(data?.length>0){
       setPastData(data)
     }
-  }
+  }, [setToSave, setCurrentChat, setPastData])
 
-  function editFlag(isEdit, editIndex){
+  const editFlag = useCallback((isEdit, editIndex)=>{
     setIsEdit(isEdit)
     console.log(isEdit, "editFlag")
     setEditindex(editIndex)
-  }
+  },[])
 
   return (
     <div className="App">

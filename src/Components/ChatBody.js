@@ -15,7 +15,7 @@ const ChatBody = ({ currentChat, setCurrentChat, saveData, isEdit, editFlag, edi
       if(currentChat.length > 0) {
         addPastConversations(currentChat)
       }
-      },[currentChat])
+      },[currentChat, addPastConversations])
 
     useEffect(()=>{
       if(pastConversations.length>0){

@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import '../App.css'
 
 const PastConversations = ({saveData, pastData, setCurrentChat, editFlag}) => {
 
   useEffect(()=>{
     saveData()
-  },[])
+  },[saveData])
 
   function handleEdit(index){
     //console.log(pastData)

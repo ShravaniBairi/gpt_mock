@@ -32,7 +32,7 @@ const PastConversations = ({saveData, pastData, setCurrentChat, editFlag}) => {
         {pastData.map((data, index) => {
             return(
 
-               <li className="title">{data.title}
+               <li key={index} className="title">{data.title}
                <button onClick={()=>handleEdit(index)}>⇱</button>
                </li>  
                   

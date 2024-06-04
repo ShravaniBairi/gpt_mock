@@ -78,8 +78,8 @@ const ChatBody = ({ currentChat, setCurrentChat, saveData, isEdit, editFlag, edi
     <div className="ChatBody">
         
         <div className="currentChatbody" >
-          {currentChat?.map((currentChat) => {
-            return <div className="CurrentChat"> 
+          {currentChat?.map((currentChat, index) => {
+            return <div key={index} className="CurrentChat"> 
             <p>You: {currentChat?.question}</p>
             <p>Gpt: {currentChat?.answer}</p>
             </div>

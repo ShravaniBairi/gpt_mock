@@ -6,7 +6,7 @@ import PastConversations from './Components/PastConversations';
 
 function App() {
   const [currentChat, setCurrentChat] = useState([])
-  const [toSave, setToSave] = useState(false)
+  //const [toSave, setToSave] = useState(false)
   const [pastData, setPastData] = useState();
   const [isEdit, setIsEdit] = useState(false)
   const [editIndex, setEditindex] = useState()
@@ -19,14 +19,14 @@ function App() {
     }, []);
   
   const saveData = useCallback(()=>{
-    setToSave(toSave => !toSave)
+    //setToSave(toSave => !toSave)
     setCurrentChat([])
     const data = JSON.parse(localStorage.getItem("pastConversations")) 
     console.log("Saved pastConversations to state:", data);
     if(data?.length>0){
       setPastData(data)
     }
-  }, [setToSave, setCurrentChat, setPastData])
+  }, [ setCurrentChat, setPastData])
 
   const editFlag = useCallback((isEdit, editIndex)=>{
     setIsEdit(isEdit)

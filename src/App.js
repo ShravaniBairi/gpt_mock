@@ -18,7 +18,7 @@ function App() {
     setPastData(data);
     }, []);
   
-  const saveData = () => {
+  function saveData (){
     setToSave(toSave => !toSave)
     setCurrentChat([])
     const data = JSON.parse(localStorage.getItem("pastConversations")) 
